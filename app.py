@@ -22,19 +22,23 @@ def list_users():
     users = User.query.all()
     return render_template('list.html', users=users)
 
-# @app.route('/users/new', method=['GET'])
-# def new_user_form():
+@app.route('/users/new', methods=['GET'])
+def new_user_form():
+    return render_template('form.html')
 
-# @app.route('/users/new', method=['POST'])
+# @app.route('/users/new', methods=['POST'])
 # def add_new_user():
 
-# @app.route('/users/<int:user_id>')
-# def view_user():
+@app.route('/users/<int:id>')
+def view_user(id):
+    user = User.query.get_or_404(id)
+    return render_template('user.html', user=user)
 
-# @app.route('/users/<int:user_id>/edit', method=['GET'])
+
+# @app.route('/users/<int:user_id>/edit', methods=['GET'])
 # def edit_user_form():
 
-# @app.route('/users/<int:user_id>/edit', method=['POST'])
+# @app.route('/users/<int:user_id>/edit', methods=['POST'])
 # def submit_user_edit():
 
 # @app.route('/users/<int:user_id>/delete')

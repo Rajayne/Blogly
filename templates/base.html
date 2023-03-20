@@ -7,6 +7,10 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    {% block navbar %}
+    <a href="/">Home</a>
+    {% endblock %}
+    <h1>{% block header %}{% endblock %}</h1>
     {% block content %}{% endblock %}
 </body>
 </html>

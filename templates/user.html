@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}User Details{% endblock %}
+
+{% block header %}{{user.first_name}} {{user.last_name}}{% endblock %}
+
+{% block content %}
+<button>Edit</button>
+<button>Delete</button>
+{% endblock %}
