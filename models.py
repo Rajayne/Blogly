@@ -30,3 +30,25 @@ class User(db.Model):
     def __repr__(self):
         u = self
         return f'{u.first_name} {u.last_name}'
+    
+class Post(db.Model):
+    __tablename__ = 'posts'
+
+    post_id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    
+    title = db.Column(db.String(15),
+                      nullable=False)
+    
+    content = db.Column(db.String(15),
+                        nullable=False)
+
+    created_at = db.Column(db.DateTime)
+    
+    user_id = db.Column(db.Integer, 
+                        db.ForeignKey('users.id'))
+    
+    @classmethod
+    def get_by_post_id(cls, post_id):
+        return cls.query.filter_by(post_id=post_id)
