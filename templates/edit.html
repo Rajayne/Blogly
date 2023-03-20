@@ -15,7 +15,7 @@
     <label>Profile Image:</label>
     <input type="url" name="image_url" placeholder="{{user.image_url}}">
     <br><br>
-    <button>Cancel</button>
-    <button>Save</button>
+    <a href="/users/{{user.id}}" class="cancel">Cancel</a>
+    <button type="submit">Save</button>
 </form>
 {% endblock %}
