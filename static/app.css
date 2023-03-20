@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: black;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+button {
+    height: 1.5rem;
+    border-radius: 10%;
+    margin: .2rem;
+}
+
+.button {
+    color: white;
+    border-style: none;
+}
+
+#edit {
+    background: rgb(36, 135, 255);
+}
+
+#delete {
+    background: rgb(182, 53, 53);
+}
