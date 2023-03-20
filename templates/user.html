@@ -12,7 +12,13 @@
 
 <div class="right">
     <h1>{{user.first_name}} {{user.last_name}}</h1>
-    <button class="button" id="edit">Edit</button>
-    <button class="button" id="delete">Delete</button>
+    <div class="container">
+        <form action="/users/{{user.id}}/edit" methods="GET">
+            <button class="button" id="edit">Edit</button>
+        </form>
+        <form action="/users/{{user.id}}/delete">
+            <button class="button" id="delete">Delete</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

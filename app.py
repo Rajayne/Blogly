@@ -47,11 +47,24 @@ def view_user(id):
     return render_template('user.html', user=user)
 
 
-# @app.route('/users/<int:user_id>/edit', methods=['GET'])
-# def edit_user_form():
+@app.route('/users/<int:id>/edit', methods=['GET'])
+def edit_user_form(id):
+    user = User.query.get_or_404(id)
+    return render_template('edit.html', user=user)
 
-# @app.route('/users/<int:user_id>/edit', methods=['POST'])
-# def submit_user_edit():
+@app.route('/users/<int:id>/edit', methods=['POST'])
+def submit_user_edit(id):
+    user = User.query.get_or_404(id)
+    previous_image = user.image_url
+    user.first_name = request.form['first_name']
+    user.last_name = request.form['last_name']
+    user.image_url = request.form['image_url'] or previous_image
+    db.session.commit()
 
-# @app.route('/users/<int:user_id>/delete')
-# def delete_user():
+    return redirect(f'/users/{id}')
+
+@app.route('/users/<int:id>/delete')
+def delete_user(id):
+    User.get_by_id(id).delete()
+    db.session.commit()
+    return redirect('/users') 

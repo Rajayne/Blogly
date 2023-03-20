@@ -15,6 +15,9 @@ body {
     font-size: 1.2rem;
 }
 
+.image {
+    vertical-align: middle;
+}
 
 ul {
     list-style-type: none;
@@ -39,8 +42,13 @@ button {
     border-style: none;
 }
 
+.container {
+    display: flex;
+}
+
 #edit {
     background: rgb(36, 135, 255);
+    margin: 0 .5rem;
 }
 
 #delete {
