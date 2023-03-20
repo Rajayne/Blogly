@@ -1,6 +1,8 @@
 """Blogly application."""
 
 from flask import Flask, request, render_template, redirect, flash
+import urllib.request
+from PIL import Image
 from models import db, connect_db, User
 
 app = Flask(__name__,template_folder='templates')
@@ -26,8 +28,18 @@ def list_users():
 def new_user_form():
     return render_template('form.html')
 
-# @app.route('/users/new', methods=['POST'])
-# def add_new_user():
+@app.route('/users/new', methods=['POST'])
+def add_new_user():
+    default_url = 'https://cdn-icons-png.flaticon.com/512/1144/1144760.png'
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    image_url = request.form['image_url'] or default_url
+
+    new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return redirect(f'/users/{new_user.id}')
 
 @app.route('/users/<int:id>')
 def view_user(id):

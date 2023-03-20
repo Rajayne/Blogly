@@ -2,9 +2,17 @@
 
 {% block title %}User Details{% endblock %}
 
-{% block header %}{{user.first_name}} {{user.last_name}}{% endblock %}
+{% block header %}
+{% endblock %}
 
 {% block content %}
-<button class='button' id='edit'>Edit</button>
-<button class='button' id='delete'>Delete</button>
+<div class="left">
+    <img src="{{user.image_url}}" width="75" height="75"></img>
+</div>
+
+<div class="right">
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <button class="button" id="edit">Edit</button>
+    <button class="button" id="delete">Delete</button>
+</div>
 {% endblock %}

@@ -5,10 +5,16 @@
 {% block header %}Add User{% endblock %}
 
 {% block content %}
-<form>
+<form class="new_user_form" method="POST">
+    <label>First Name:</label>
     <input type="text" name="first_name" placeholder="First Name" required>
+    <br>
+    <label>Last Name:</label>
     <input type="text" name="last_name" placeholder="Last Name" required>
-    <input type="url" name="user_image" placeholder="Profile Image URL">
+    <br>
+    <label>Profile Image:</label>
+    <input type="url" name="image_url" placeholder="Image URL">
+    <br>
     <button>Submit New User!</button>
 </form>
 {% endblock %}
