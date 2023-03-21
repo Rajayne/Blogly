@@ -67,4 +67,29 @@ def submit_user_edit(id):
 def delete_user(id):
     User.get_by_id(id).delete()
     db.session.commit()
-    return redirect('/users') 
+    return redirect('/users')
+
+# app.route('users/<int:id>/posts/new')
+# def new_post_form():
+#     return render_template('post-form')
+
+# app.route('users/<int:id>/posts/new', methods=['POST'])
+# def new_post_form(id):
+#     return redirect(f'/users/{id}')
+
+# app.route('posts/<int:post_id')
+# def show_post():
+#     return render_template('post.html')
+
+# app.route('/posts/<int:post_id>/edit')
+# def edit_post_form():
+#     return render_template('edit-post.html')
+
+# app.route('/posts/<int:post_id>/edit', methods=['POST'])
+# def edit_post():
+#     return redirect('/posts/<int:post_id>')
+
+# app.route('post/<int:post_id>/delete')
+# def delete_post():
+#     return redirect('/')
+

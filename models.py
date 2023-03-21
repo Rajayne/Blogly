@@ -41,7 +41,7 @@ class Post(db.Model):
     title = db.Column(db.String(15),
                       nullable=False)
     
-    content = db.Column(db.String(15),
+    content = db.Column(db.String(128),
                         nullable=False)
 
     created_at = db.Column(db.DateTime)
