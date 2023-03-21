@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -26,7 +27,7 @@ class User(db.Model):
     @classmethod
     def get_by_id(cls, id):
         return cls.query.filter_by(id=id)
-    
+
     def __repr__(self):
         u = self
         return f'{u.first_name} {u.last_name}'
@@ -44,7 +45,8 @@ class Post(db.Model):
     content = db.Column(db.String(128),
                         nullable=False)
 
-    created_at = db.Column(db.DateTime)
+    created_at = db.Column(db.Timestamp,
+                           default=func.now())
     
     user_id = db.Column(db.Integer, 
                         db.ForeignKey('users.id'))

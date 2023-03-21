@@ -5,14 +5,14 @@
 {% block header %}Create Post for {{user.first_name}} {{user.last_name}}{% endblock %}
 
 {% block content %}
-<form class="new_post_form" method="POST">
+<form class="new_post_form" action="/users/{{user.id}}/posts/new" method="POST">
     <div class="label">
         <label>Title:</label>
         <br><br>
         <label>Content:</label>
     </div>
-    <div class="post-form-input">
-        <input type="text" name="title" placeholder="Title" required>
+    <div class="post-form-input" method="POST">
+        <input type="text" name="title" required>
         <br><br>
         <input type="text" name="content" class="content" required>
         <br><br>

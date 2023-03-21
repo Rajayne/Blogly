@@ -36,14 +36,13 @@ def add_new_user():
     new_user = User(first_name=first_name, last_name=last_name, image_url=image_url)
     db.session.add(new_user)
     db.session.commit()
-
     return redirect(f'/users/{new_user.id}')
 
 @app.route('/users/<int:id>')
 def view_user(id):
     user = User.query.get_or_404(id)
-    return render_template('user.html', user=user)
-
+    posts = Post.query.filter_by(user_id=id)
+    return render_template('user.html', user=user, posts=posts)
 
 @app.route('/users/<int:id>/edit', methods=['GET'])
 def edit_user_form(id):
@@ -67,14 +66,20 @@ def delete_user(id):
     db.session.commit()
     return redirect('/users')
 
-@app.route('/users/<int:id>/posts/new')
+@app.route('/users/<int:id>/posts/new', methods=['GET'])
 def post_form(id):
     user = User.query.get_or_404(id)
     return render_template('post.html', user=user)
 
-# app.route('users/<int:id>/posts/new', methods=['POST'])
-# def new_post_form(id):
-#     return redirect(f'/users/{id}')
+app.route('/users/<int:id>/posts/new', methods=['POST'])
+def new_post_form():
+    title = request.form['title']
+    content = request.form['content']
+
+    # new_post = Post(title=title, content=content, user_id=id)
+    # db.session.add(new_post)
+    # db.session.commit()
+    return (f'title = {title}, content = {content}')
 
 # app.route('posts/<int:post_id')
 # def show_post():
