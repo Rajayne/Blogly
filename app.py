@@ -1,9 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, render_template, redirect, flash
-import urllib.request
-from PIL import Image
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__,template_folder='templates')
 
@@ -69,9 +67,10 @@ def delete_user(id):
     db.session.commit()
     return redirect('/users')
 
-# app.route('users/<int:id>/posts/new')
-# def new_post_form():
-#     return render_template('post-form')
+@app.route('/users/<int:id>/posts/new')
+def post_form(id):
+    user = User.query.get_or_404(id)
+    return render_template('post.html', user=user)
 
 # app.route('users/<int:id>/posts/new', methods=['POST'])
 # def new_post_form(id):

@@ -9,7 +9,7 @@
     {% for user in users %}
     <li>
         <img class="image" src="{{user.image_url}}" width="50" height="50"></img>
-        <a href="users/{{user.id}}"">{{user.first_name}} {{user.last_name}}</a>
+        <a href="/users/{{user.id}}"">{{user.first_name}} {{user.last_name}}</a>
     </li>
     {% endfor %}
 </ul>

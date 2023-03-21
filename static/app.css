@@ -74,3 +74,20 @@ button {
     margin: 0 .5rem;
     padding: .4rem;
 }
+
+.label {
+    margin: 1rem;
+    vertical-align: top;
+}
+
+.post-form-input {
+    margin: 1rem;
+}
+
+.post-form-input input {
+    width: 300px;
+}
+
+.content {
+    height: 100px;
+}
