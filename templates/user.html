@@ -24,11 +24,15 @@
 
 <br><br>
 <div class="posts">
-    {% for post in posts %}
-    <li>
-        <a href="/posts/{{post.post_id}}"">{{post.title}}</a>
-    </li>
-    {% endfor %}
+    <h2>Posts</h2>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="/posts/{{post.post_id}}"">{{post.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <br><br>
     <form action="/users/{{user.id}}/posts/new">
         <button>Add Post</button>
     </form>
