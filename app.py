@@ -41,8 +41,8 @@ def add_new_user():
 @app.route('/users/<int:id>')
 def view_user(id):
     user = User.query.get_or_404(id)
-    # posts = Post.query.filter_by()
-    return render_template('user.html', user=user)
+    posts = Post.query.filter(user_id=user.id).all()
+    return render_template('user.html', user=user, posts=posts)
 
 @app.route('/users/<int:id>/edit', methods=['GET'])
 def edit_user_form(id):

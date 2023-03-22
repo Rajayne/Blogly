@@ -48,9 +48,15 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime,
                            server_default=func.now())
     
-    user_id = db.Column(db.Integer, 
+    user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'))
+    
+    user = db.relationship('User')
     
     @classmethod
     def get_by_post_id(cls, post_id):
         return cls.query.filter_by(post_id=post_id)
+    
+    def __repr__(self):
+        u = self
+        return f'Title: {u.title}, Content: {u.content}, Created {u.created_at} by {u.user}'
