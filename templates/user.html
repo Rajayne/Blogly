@@ -13,7 +13,7 @@
 <div class="right">
     <h1>{{user.first_name}} {{user.last_name}}</h1>
     <div class="container">
-        <form action="/users/{{user.id}}/edit" methods="GET">
+        <form action="/users/{{user.id}}/edit" method="GET">
             <button class="button" id="edit">Edit</button>
         </form>
         <form action="/users/{{user.id}}/delete">

@@ -45,8 +45,8 @@ class Post(db.Model):
     content = db.Column(db.String(128),
                         nullable=False)
 
-    created_at = db.Column(db.Timestamp,
-                           default=func.now())
+    created_at = db.Column(db.DateTime,
+                           server_default=func.now())
     
     user_id = db.Column(db.Integer, 
                         db.ForeignKey('users.id'))

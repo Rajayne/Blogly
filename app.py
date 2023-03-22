@@ -19,7 +19,7 @@ def show_users():
 
 @app.route('/users')
 def list_users():
-    users = User.query.all()
+    users = User.query.order_by("first_name").all()
     return render_template('list.html', users=users)
 
 @app.route('/users/new', methods=['GET'])
@@ -41,8 +41,8 @@ def add_new_user():
 @app.route('/users/<int:id>')
 def view_user(id):
     user = User.query.get_or_404(id)
-    posts = Post.query.filter_by(user_id=id)
-    return render_template('user.html', user=user, posts=posts)
+    # posts = Post.query.filter_by()
+    return render_template('user.html', user=user)
 
 @app.route('/users/<int:id>/edit', methods=['GET'])
 def edit_user_form(id):
@@ -71,29 +71,34 @@ def post_form(id):
     user = User.query.get_or_404(id)
     return render_template('post.html', user=user)
 
-app.route('/users/<int:id>/posts/new', methods=['POST'])
-def new_post_form():
+@app.route('/users/<int:id>/posts/new', methods=['POST'])
+def new_post_form(id):
+    user = User.query.get_or_404(id)
     title = request.form['title']
     content = request.form['content']
 
-    # new_post = Post(title=title, content=content, user_id=id)
-    # db.session.add(new_post)
-    # db.session.commit()
-    return (f'title = {title}, content = {content}')
+    try:
+        new_post = Post(title=title, content=content, user_id=id)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(f'/users/{id}')
+    except:
+        db.session.rollback()
+        return ('Session rolled back, error.')
 
-# app.route('posts/<int:post_id')
+# @app.route('posts/<int:post_id')
 # def show_post():
 #     return render_template('post.html')
 
-# app.route('/posts/<int:post_id>/edit')
+# @app.route('/posts/<int:post_id>/edit')
 # def edit_post_form():
 #     return render_template('edit-post.html')
 
-# app.route('/posts/<int:post_id>/edit', methods=['POST'])
+# @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 # def edit_post():
 #     return redirect('/posts/<int:post_id>')
 
-# app.route('post/<int:post_id>/delete')
+# @app.route('post/<int:post_id>/delete')
 # def delete_post():
 #     return redirect('/')
 
