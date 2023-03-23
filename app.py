@@ -90,9 +90,10 @@ def show_post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post_details.html', post=post)
 
-# @app.route('/posts/<int:post_id>/edit')
-# def edit_post_form():
-#     return render_template('edit-post.html')
+@app.route('/posts/<int:post_id>/edit', methods=['GET'])
+def edit_post_form(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('edit-post.html', post=post)
 
 # @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 # def edit_post():

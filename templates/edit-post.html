@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post Form{% endblock %}
+
+{% block header %}Edit Post{% endblock %}
+
+{% block content %}
+<form class="edit_post_form" method="POST">
+    <div class="label">
+        <label>Title:</label>
+        <br><br>
+        <label>Content:</label>
+    </div>
+    <div class="post-form-input">
+        <input type="text" name="title" placeholder="{{post.title}}" required>
+        <br><br>
+        <input type="textarea" name="content" class="content" placeholder="{{post.content}}" required>
+        <br><br>
+        <a href="/posts/{{post.post_id}}" class="cancel">Cancel</a>
+        <button type="submit">Add</button>
+    </div>
+</form>
+{% endblock %}
