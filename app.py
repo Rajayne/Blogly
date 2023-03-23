@@ -69,7 +69,7 @@ def delete_user(id):
 @app.route('/users/<int:id>/posts/new', methods=['GET'])
 def post_form(id):
     user = User.query.get_or_404(id)
-    return render_template('post.html', user=user)
+    return render_template('post_form.html', user=user)
 
 @app.route('/users/<int:id>/posts/new', methods=['POST'])
 def new_post_form(id):
@@ -85,9 +85,10 @@ def new_post_form(id):
         db.session.rollback()
         return ('Session rolled back, error.')
 
-# @app.route('posts/<int:post_id')
-# def show_post():
-#     return render_template('post.html')
+@app.route('/posts/<int:post_id>')
+def show_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post_details.html', post=post)
 
 # @app.route('/posts/<int:post_id>/edit')
 # def edit_post_form():
@@ -100,4 +101,3 @@ def new_post_form(id):
 # @app.route('post/<int:post_id>/delete')
 # def delete_post():
 #     return redirect('/')
-

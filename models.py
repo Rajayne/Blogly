@@ -42,7 +42,7 @@ class Post(db.Model):
     title = db.Column(db.String(15),
                       nullable=False)
     
-    content = db.Column(db.String(128),
+    content = db.Column(db.String(256),
                         nullable=False)
 
     created_at = db.Column(db.DateTime,
@@ -51,12 +51,12 @@ class Post(db.Model):
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'))
     
-    user = db.relationship('User')
+    user = db.relationship('User', backref='users')
     
     @classmethod
     def get_by_post_id(cls, post_id):
         return cls.query.filter_by(post_id=post_id)
     
     def __repr__(self):
-        u = self
-        return f'Title: {u.title}, Content: {u.content}, Created {u.created_at} by {u.user}'
+        p = self
+        return f'Title: {p.title}, Content: {p.content}, Created {p.created_at} by {p.user}'
