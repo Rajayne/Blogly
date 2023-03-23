@@ -23,6 +23,8 @@ class User(db.Model):
     
     image_url = db.Column(db.String(256),
                           nullable=True)
+    
+    posts = db.relationship('Post', cascade='all, delete', backref='user')
 
     @classmethod
     def get_by_id(cls, id):
@@ -49,9 +51,9 @@ class Post(db.Model):
                            server_default=func.now())
     
     user_id = db.Column(db.Integer,
-                        db.ForeignKey('users.id'))
-    
-    user = db.relationship('User', backref='users')
+                        db.ForeignKey('users.id',
+                                      ondelete='CASCADE'),
+                                      nullable=False)
     
     @classmethod
     def get_by_post_id(cls, post_id):

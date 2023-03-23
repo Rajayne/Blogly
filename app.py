@@ -62,9 +62,15 @@ def submit_user_edit(id):
 
 @app.route('/users/<int:id>/delete')
 def delete_user(id):
-    User.get_by_id(id).delete()
-    db.session.commit()
-    return redirect('/users')
+    try:
+        User.get_by_id(id).delete()
+        db.session.commit()
+        return redirect('/users')
+    except:
+        user = User.query.get_or_404(id)
+        db.session.rollback()
+        return (f'Session rolled back on delete user, error. {user}, {user.posts}')
+
 
 @app.route('/users/<int:id>/posts/new', methods=['GET'])
 def post_form(id):
