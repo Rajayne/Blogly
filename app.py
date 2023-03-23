@@ -83,7 +83,7 @@ def new_post_form(id):
         return redirect(f'/users/{id}')
     except:
         db.session.rollback()
-        return ('Session rolled back, error.')
+        return ('Session rolled back on add post, error.')
 
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
@@ -95,10 +95,27 @@ def edit_post_form(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('edit-post.html', post=post)
 
-# @app.route('/posts/<int:post_id>/edit', methods=['POST'])
-# def edit_post():
-#     return redirect('/posts/<int:post_id>')
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    post.title = request.form['title']
+    post.content = request.form['content']
 
-# @app.route('post/<int:post_id>/delete')
-# def delete_post():
-#     return redirect('/')
+    try:
+        db.session.commit()
+        return redirect(f'/posts/{post_id}')
+    except:
+        db.session.rollback()
+        return ('Session rolled back on edit post, error.')
+
+@app.route('/posts/<int:post_id>/delete')
+def delete_post(post_id):
+    user_id = Post.query.get_or_404(post_id).user.id
+
+    try:
+        Post.get_by_post_id(post_id).delete()
+        db.session.commit()
+        return redirect(f'/users/{user_id}')
+    except:
+        db.session.rollback()
+        return (f'Session rolled back on delete post, error.')
