@@ -14,6 +14,10 @@ app.app_context().push()
 connect_db(app)
 db.create_all()
 
+@app.errorhandler(404)
+def show_error_page(e):
+    return render_template('error.html'), 404
+
 @app.route('/')
 def show_home():
     posts = Post.query.order_by(desc('created_at')).limit(5).all()
