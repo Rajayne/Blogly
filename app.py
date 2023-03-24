@@ -122,17 +122,17 @@ def edit_post(post_id):
     post.title = request.form['title']
     post.content = request.form['content']
     tags = request.form.getlist('checks')
+    new_tags = []
 
-    try:
-        db.session.commit()
-        for tag in tags:
-            new_posttag = PostTag(post_key=post_id, tag_key=tag)
-            db.session.add(new_posttag)
-            db.session.commit()
-        return redirect(f'/posts/{post_id}')
-    except:
-        db.session.rollback()
-        return (f'Session rolled back on edit post, error. New: {tags}')
+    for tag_name in tags:
+        tag = Tag.query.filter_by(tag_name=tag_name).first()
+        if not tag:
+            tag = Tag(tag_name=tag_name)
+        new_tags.append(tag)
+
+    post.tags = new_tags
+    db.session.commit()
+    return redirect(f'/posts/{post_id}')
 
 @app.route('/posts/<int:post_id>/delete')
 def delete_post(post_id):

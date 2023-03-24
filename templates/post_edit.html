@@ -20,7 +20,7 @@
         <ul>
             <li id="tag-li">
                 {% for tag in tags %}
-                <input type="checkbox" name="checks" id="{{tag.tag_id}}" value="{{tag.tag_id}}"><label for="{{tag.tag_id}}">{{tag.tag_name}}</label>
+                <input type="checkbox" name="checks" id="{{tag.tag_name}}" value="{{tag.tag_name}}"><label for="{{tag.tag_name}}">{{tag.tag_name}}</label>
                 {% endfor %}
             </li>
         </ul>
