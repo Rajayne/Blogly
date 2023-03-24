@@ -9,8 +9,18 @@
     <p>{{post.content}}</p>
     <br>
     <i>By {{post.user}}</i>
+    <br><br>
+    <p><b>Tags:
+        <i>
+        {% for tag in tags %}
+            <a href="/tags/{{tag.tag_id}}" class="tags">{{tag.tag_name}}</a>
+        {% endfor %}
+        </i>
+    </b></p>
 </div>
+
 <br><br><br>
+
 <div>
     <a href="/users/{{post.user.id}}" class="cancel">Cancel</a>
 </div>

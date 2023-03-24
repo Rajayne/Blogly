@@ -97,3 +97,14 @@ button {
     padding-top: 5px;
     padding-bottom: 80px;
 }
+
+.tags {
+    text-decoration: none;
+    color: white;
+    font-size: x-small;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(36, 135, 255);
+    border-radius: 15%;
+    padding: .2rem;
+    overflow: hidden;
+}

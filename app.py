@@ -100,7 +100,8 @@ def new_post_form(id):
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post_details.html', post=post)
+    tags = post.tags
+    return render_template('post_details.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['GET'])
 def edit_post_form(post_id):
