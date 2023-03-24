@@ -10,6 +10,14 @@
         <label>Name:</label>
         <input type="text" name="tag" placeholder="{{tag.tag_name}}">
         <br><br>
+        <b><i>Select posts:</i></b>
+        <ul>
+            {% for post in posts %}
+            <li id="tag-li">
+                <input type="checkbox" name="checks" id="{{post.title}}" value="{{post.title}}"><label for="{{post.title}}">{{post.title}}</label>
+            </li>
+            {% endfor %}
+        </ul>
         <a href="/tags" class="cancel">Cancel</a>
         <button type="submit">Save</button>
     </div>

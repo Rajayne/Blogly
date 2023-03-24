@@ -8,8 +8,17 @@
 <form method="POST">
     <label>Name:</label>
     <input type="text" name="tag" placeholder="Enter a name for the tag">
-    <br><br><br>
+    <br><br>
+    <b><i>Select posts:</i></b>
+    <ul>
+        {% for post in posts %}
+        <li id="tag-li">
+            <input type="checkbox" name="checks" id="{{post.post_id}}" value="{{post.post_id}}"><label for="{{post.post_id}}">{{post.title}}</label>
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
     <a href="/tags" class="cancel">Cancel</a>
-    <button type="submit">Save</button>
+    <button type="submit">Add</button>
 </form>
 {% endblock %}

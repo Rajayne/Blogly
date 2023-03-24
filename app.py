@@ -159,37 +159,51 @@ def show_tag_details(tag_id):
 
 @app.route('/tags/new', methods=['GET'])
 def new_tag_form():
-    return render_template('tag_form.html')
+    posts = Post.query.order_by('title').all()
+    return render_template('tag_form.html', posts=posts)
 
 @app.route('/tags/new', methods=['POST'])
 def add_new_tag():
     tag = request.form['tag']
+    posts = request.form.getlist('checks')
 
     try:
         new_tag = Tag(tag_name=tag)
         db.session.add(new_tag)
         db.session.commit()
+
+        for post in posts:
+            new_posttag = PostTag(post_key=post, tag_key=new_tag.tag_id)
+            db.session.add(new_posttag)
+            db.session.commit()
         return redirect(f'/tags')
     except:
         db.session.rollback()
-        return (f'Session rolled back on add tag, error. {new_tag}')
+        return (f'Session rolled back on add tag, error. {tag}')
 
 @app.route('/tags/<int:tag_id>/edit', methods=['GET'])
 def edit_tag_form(tag_id):
     tag = Tag.query.get(tag_id)
-    return render_template('tag_edit.html', tag=tag)
+    posts = Post.query.order_by('title').all()
+    return render_template('tag_edit.html', tag=tag, posts=posts)
 
 @app.route('/tags/<int:tag_id>/edit', methods=['POST'])
 def save_tag_edit(tag_id):
     tag = Tag.query.get_or_404(tag_id)
     tag.tag_name = request.form['tag']
+    posts = request.form.getlist('checks')
+    new_posts = []
 
     try:
+        for title in posts:
+            post = Post.query.filter_by(title=title).first()
+            new_posts.append(post)
+        tag.posts = new_posts
         db.session.commit()
-        return redirect(f'/tags')
+        return redirect('/tags')
     except:
         db.session.rollback()
-        return ('Session rolled back on edit tag, error.')
+        return (f'Session rolled back on edit tag, error. {tag}')
     
 @app.route('/tags/<int:tag_id>/delete')
 def delete_tag(tag_id):
