@@ -15,6 +15,7 @@ body {
     font-size: 1.2rem;
 }
 
+/* Profile image centered to name & buttons */
 .image {
     vertical-align: middle;
 }
@@ -88,16 +89,18 @@ button {
     margin: 1rem;
 }
 
-.post-form-input input {
+.post-form-input .content {
     width: 300px;
 }
 
-.content {
+/* Post content text box */
+#content {
     word-break: break-all;
     padding-top: 5px;
     padding-bottom: 80px;
 }
 
+/* Post details tag list */
 .tags {
     text-decoration: none;
     color: white;
@@ -107,4 +110,8 @@ button {
     border-radius: 15%;
     padding: .2rem;
     overflow: hidden;
+}
+
+#tag-li {
+    margin: 0 -2.4rem;
 }

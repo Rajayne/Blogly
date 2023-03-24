@@ -11,7 +11,15 @@
         <h3>{{post.title}}</h3>
         <p>{{post.content}}</p>
         <i>By {{post.user}} on {{post.get_datetime(post.post_id)}}</i>
+        <p><b>Tags:
+            <i>
+            {% for tag in post.tags %}
+                <a href="/tags/{{tag.tag_id}}" class="tags">{{tag.tag_name}}</a>
+            {% endfor %}
+            </i>
+        </b></p>
     </li>
+    <hr>
     {% endfor %}
 </ul>
 {% endblock %}

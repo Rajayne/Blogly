@@ -81,17 +81,24 @@ def delete_user(id):
 @app.route('/users/<int:id>/posts/new', methods=['GET'])
 def post_form(id):
     user = User.query.get_or_404(id)
-    return render_template('post_form.html', user=user)
+    tags = Tag.query.order_by('tag_name').all()
+    return render_template('post_form.html', user=user, tags=tags)
 
 @app.route('/users/<int:id>/posts/new', methods=['POST'])
 def new_post_form(id):
     title = request.form['title']
     content = request.form['content']
+    tags = request.form.getlist('checks')
 
     try:
         new_post = Post(title=title, content=content, user_id=id)
         db.session.add(new_post)
         db.session.commit()
+
+        for tag in tags:
+            new_posttag = PostTag(post_key=new_post.post_id, tag_key=tag)
+            db.session.add(new_posttag)
+            db.session.commit()
         return redirect(f'/users/{id}')
     except:
         db.session.rollback()
@@ -106,20 +113,26 @@ def show_post(post_id):
 @app.route('/posts/<int:post_id>/edit', methods=['GET'])
 def edit_post_form(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('post_edit.html', post=post)
+    tags = Tag.query.order_by('tag_name').all()
+    return render_template('post_edit.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
     post.title = request.form['title']
     post.content = request.form['content']
+    tags = request.form.getlist('checks')
 
     try:
         db.session.commit()
+        for tag in tags:
+            new_posttag = PostTag(post_key=post_id, tag_key=tag)
+            db.session.add(new_posttag)
+            db.session.commit()
         return redirect(f'/posts/{post_id}')
     except:
         db.session.rollback()
-        return ('Session rolled back on edit post, error.')
+        return (f'Session rolled back on edit post, error. New: {tags}')
 
 @app.route('/posts/<int:post_id>/delete')
 def delete_post(post_id):

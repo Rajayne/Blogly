@@ -100,11 +100,13 @@ class PostTag(db.Model):
     __tablename__ = 'post_tags'
 
     post_key = db.Column(db.Integer,
-                         db.ForeignKey('posts.post_id'),
-                         primary_key=True)
+                         db.ForeignKey('posts.post_id',
+                                       ondelete='CASCADE'),
+                                       primary_key=True)
     tag_key = db.Column(db.Integer,
-                        db.ForeignKey('tags.tag_id'),
-                        primary_key=True)
+                        db.ForeignKey('tags.tag_id',
+                                       ondelete='CASCADE'),
+                                       primary_key=True)
     
     @classmethod
     def get_tag_from_key(cls, tag_key):
