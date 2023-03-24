@@ -134,11 +134,14 @@ def delete_post(post_id):
     
 @app.route('/tags')
 def list_tags():
-    return render_template('tags.html')
+    tags = Tag.query.order_by('tag_name').all()
+    return render_template('tag_list.html', tags=tags)
 
 @app.route('/tags/<int:tag_id>')
 def show_tag_details(tag_id):
-    return render_template('tag_details.html')
+    tag = Tag.query.get(tag_id)
+    posts = tag.posts
+    return render_template('tag_details.html', tag=tag, posts=posts)
 
 @app.route('/tags/new', methods=['GET'])
 def new_tag_form():

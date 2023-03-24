@@ -46,9 +46,19 @@ db.session.add(post6)
 db.session.commit()
 
 tag1 = Tag(tag_name='yolo')
+tag2 = Tag(tag_name='haha')
+tag3 = Tag(tag_name='rofl')
+
 db.session.add(tag1)
+db.session.add(tag2)
+db.session.add(tag3)
 db.session.commit()
 
 posttag1 = PostTag(tag_key=1, post_key=1)
+posttag2 = PostTag(tag_key=2, post_key=1)
+posttag3 = PostTag(tag_key=3, post_key=1)
+
 db.session.add(posttag1)
+db.session.add(posttag2)
+db.session.add(posttag3)
 db.session.commit()

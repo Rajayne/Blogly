@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Tag Details{% endblock %}
+
+{% block header %}Tag: {{tag.tag_name}}{% endblock %}
+
+{% block content %}
+<div>
+    <h3>Related Posts</h3>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="/posts/{{post.post_id}}"">{{post.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

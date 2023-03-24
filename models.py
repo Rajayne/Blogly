@@ -55,7 +55,9 @@ class Post(db.Model):
                                       ondelete='CASCADE'),
                                       nullable=False)
 
-    tag = db.relationship('PostTag', backref='post')  
+    tag = db.relationship('Tag', 
+                           secondary='post_tags',
+                           backref='posts')
     
     @classmethod
     def get_by_post_id(cls, post_id):
@@ -82,11 +84,17 @@ class Tag(db.Model):
                          nullable=False,
                          unique=True)
     
-    post = db.relationship('PostTag', backref='tag')
+    post = db.relationship('Post', 
+                           secondary='post_tags',
+                           backref='tags')
+
+    @classmethod
+    def get_by_tag_id(cls, tag_id):
+        return cls.query.filter_by(tag_id=tag_id)
 
     def __repr__(self):
         t = self
-        return f'{t.tag_name} {t.post_id}'    
+        return f'{t.tag_name} {t.post}'    
     
 class PostTag(db.Model):
     __tablename__ = 'post_tags'
@@ -97,7 +105,17 @@ class PostTag(db.Model):
     tag_key = db.Column(db.Integer,
                         db.ForeignKey('tags.tag_id'),
                         primary_key=True)
+    
+    @classmethod
+    def get_tag_from_key(cls, tag_key):
+        return cls.query.filter_by(tag_key=tag_key)
+    
+    @classmethod
+    def get_post_from_key(cls, post_key):
+        return cls.query.filter_by(post_key=post_key)
 
     def __repr__(self):
         x = self
-        return f'{x.post_key} {x.tag_key}'   
+        post = Post.query.get_or_404(x.post_key)
+        tag = Tag.query.get_or_404(x.tag_key)
+        return (f'Post: {post.title}, Tag: {tag.tag_name}')
