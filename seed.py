@@ -16,7 +16,6 @@ user2 = User(first_name='Min',
 
 db.session.add(user1)
 db.session.add(user2)
-
 db.session.commit()
 
 post1 = Post(title='Irasshaimase', 
@@ -44,13 +43,12 @@ db.session.add(post3)
 db.session.add(post4)
 db.session.add(post5)
 db.session.add(post6)
+db.session.commit()
 
 tag1 = Tag(tag_name='yolo')
-
 db.session.add(tag1)
+db.session.commit()
 
 posttag1 = PostTag(tag_key=1, post_key=1)
-
 db.session.add(posttag1)
-
 db.session.commit()

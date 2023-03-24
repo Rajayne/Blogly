@@ -100,4 +100,4 @@ class PostTag(db.Model):
 
     def __repr__(self):
         x = self
-        return f'{x.post} {x.tag}'    
+        return f'{x.post_key} {x.tag_key}'   

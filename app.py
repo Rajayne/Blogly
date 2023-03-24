@@ -26,11 +26,11 @@ def show_home():
 @app.route('/users')
 def list_users():
     users = User.query.order_by("first_name").all()
-    return render_template('list.html', users=users)
+    return render_template('user_list.html', users=users)
 
 @app.route('/users/new', methods=['GET'])
 def new_user_form():
-    return render_template('form.html')
+    return render_template('user_form.html')
 
 @app.route('/users/new', methods=['POST'])
 def add_new_user():
@@ -48,12 +48,12 @@ def add_new_user():
 def view_user(id):
     user = User.query.get_or_404(id)
     posts = Post.query.filter_by(user_id=id).all()
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user_details.html', user=user, posts=posts)
 
 @app.route('/users/<int:id>/edit', methods=['GET'])
 def edit_user_form(id):
     user = User.query.get_or_404(id)
-    return render_template('edit.html', user=user)
+    return render_template('user_edit.html', user=user)
 
 @app.route('/users/<int:id>/edit', methods=['POST'])
 def submit_user_edit(id):
@@ -105,7 +105,7 @@ def show_post(post_id):
 @app.route('/posts/<int:post_id>/edit', methods=['GET'])
 def edit_post_form(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('edit-post.html', post=post)
+    return render_template('post_edit.html', post=post)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
@@ -131,3 +131,31 @@ def delete_post(post_id):
     except:
         db.session.rollback()
         return (f'Session rolled back on delete post, error.')
+    
+@app.route('/tags')
+def list_tags():
+    return render_template('tags.html')
+
+@app.route('/tags/<int:tag_id>')
+def show_tag_details(tag_id):
+    return render_template('tag_details.html')
+
+@app.route('/tags/new', methods=['GET'])
+def new_tag_form():
+    return render_template('tag_form.html')
+
+@app.route('/tags/new', methods=['POST'])
+def add_new_tag():
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/edit', methods=['GET'])
+def edit_tag_form(tag_id):
+    return render_template('tag_edit.html')
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def save_tag_edit(tag_id):
+    return redirect('/tags')   
+
+@app.route('/tags/<int:tag_id>/delete')
+def delete_tag(tag_id):
+    return redirect('/tags')
