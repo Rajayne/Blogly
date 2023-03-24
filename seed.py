@@ -19,14 +19,30 @@ db.session.add(user2)
 
 db.session.commit()
 
-post1 = Post(title='Welcome', 
+post1 = Post(title='Irasshaimase', 
              content='Welcome!', 
              user_id=1)
-post2 = Post(title='Goodbye', 
-             content='Goodbye!', 
+post2 = Post(title='Ohayogozaimas', 
+             content='Good Morning!', 
+             user_id=1)
+post3 = Post(title='Arigatogozaimasu', 
+             content='Thank you!', 
+             user_id=1)
+post4 = Post(title='Joh-eun achim-ieyo', 
+             content='Good Night!', 
+             user_id=2)
+post5 = Post(title='Annyeonghi gaseyo', 
+             content='Goodbye!',
+             user_id=2)
+post6 = Post(title='Cheonman-eyo', 
+             content="You're welcome!",
              user_id=2)
 
 db.session.add(post1)
 db.session.add(post2)
+db.session.add(post3)
+db.session.add(post4)
+db.session.add(post5)
+db.session.add(post6)
 
 db.session.commit()

@@ -41,7 +41,7 @@ class Post(db.Model):
                    primary_key=True,
                    autoincrement=True)
     
-    title = db.Column(db.String(15),
+    title = db.Column(db.String(60),
                       nullable=False)
     
     content = db.Column(db.String(256),
@@ -58,6 +58,12 @@ class Post(db.Model):
     @classmethod
     def get_by_post_id(cls, post_id):
         return cls.query.filter_by(post_id=post_id)
+    
+    @classmethod
+    def get_datetime(cls, post_id):
+        post = cls.query.get(post_id)
+        datetime = post.created_at.strftime(f'%a %b %d %Y, %I:%M %p')
+        return datetime
     
     def __repr__(self):
         p = self

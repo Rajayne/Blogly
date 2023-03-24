@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block header %}Blogly Recent Posts{% endblock %}
+
+{% block content %}
+<ul>
+    {% for post in posts %}
+    <li>
+        <h3>{{post.title}}</h3>
+        <p>{{post.content}}</p>
+        <i>By {{post.user}} on {{post.get_datetime(post.post_id)}}</i>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

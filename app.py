@@ -1,6 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, render_template, redirect, flash
+from sqlalchemy import desc
 from models import db, connect_db, User, Post
 
 app = Flask(__name__,template_folder='templates')
@@ -14,8 +15,9 @@ connect_db(app)
 db.create_all()
 
 @app.route('/')
-def show_users():
-    return redirect('/users')
+def show_home():
+    posts = Post.query.order_by(desc('created_at')).limit(5).all()
+    return render_template('home.html', posts=posts)
 
 @app.route('/users')
 def list_users():
