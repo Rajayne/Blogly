@@ -149,16 +149,40 @@ def new_tag_form():
 
 @app.route('/tags/new', methods=['POST'])
 def add_new_tag():
-    return redirect('/tags')
+    tag = request.form['tag']
+
+    try:
+        new_tag = Tag(tag_name=tag)
+        db.session.add(new_tag)
+        db.session.commit()
+        return redirect(f'/tags')
+    except:
+        db.session.rollback()
+        return (f'Session rolled back on add tag, error. {new_tag}')
 
 @app.route('/tags/<int:tag_id>/edit', methods=['GET'])
 def edit_tag_form(tag_id):
-    return render_template('tag_edit.html')
+    tag = Tag.query.get(tag_id)
+    return render_template('tag_edit.html', tag=tag)
 
 @app.route('/tags/<int:tag_id>/edit', methods=['POST'])
 def save_tag_edit(tag_id):
-    return redirect('/tags')   
+    tag = Tag.query.get_or_404(tag_id)
+    tag.tag_name = request.form['tag']
 
+    try:
+        db.session.commit()
+        return redirect(f'/tags')
+    except:
+        db.session.rollback()
+        return ('Session rolled back on edit tag, error.')
+    
 @app.route('/tags/<int:tag_id>/delete')
 def delete_tag(tag_id):
-    return redirect('/tags')
+    try:
+        Tag.get_by_tag_id(tag_id).delete()
+        db.session.commit()
+        return redirect(f'/tags')
+    except:
+        db.session.rollback()
+        return (f'Session rolled back on delete tag, error.')

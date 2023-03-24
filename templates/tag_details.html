@@ -15,4 +15,15 @@
         {% endfor %}
     </ul>
 </div>
+<br><br>
+<div>
+    <form action="/tags/{{tag.tag_id}}/edit" method="GET">
+        <button class="button" id="edit">Edit</button>
+    </form>
+</div>
+<div>
+    <form action="/tags/{{tag.tag_id}}/delete">
+        <button class="button" id="delete">Delete</button>
+    </form>
+</div>
 {% endblock %}
