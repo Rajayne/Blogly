@@ -54,6 +54,8 @@ class Post(db.Model):
                         db.ForeignKey('users.id',
                                       ondelete='CASCADE'),
                                       nullable=False)
+
+    tag = db.relationship('PostTag', backref='post')  
     
     @classmethod
     def get_by_post_id(cls, post_id):
@@ -68,3 +70,34 @@ class Post(db.Model):
     def __repr__(self):
         p = self
         return f'Title: {p.title}, Content: {p.content}, Created {p.created_at} by {p.user}'
+    
+class Tag(db.Model):
+    __tablename__ = 'tags'
+
+    tag_id = db.Column(db.Integer,
+                       primary_key=True,
+                       autoincrement=True)
+    
+    tag_name = db.Column(db.String(60),
+                         nullable=False,
+                         unique=True)
+    
+    post = db.relationship('PostTag', backref='tag')
+
+    def __repr__(self):
+        t = self
+        return f'{t.tag_name} {t.post_id}'    
+    
+class PostTag(db.Model):
+    __tablename__ = 'post_tags'
+
+    post_key = db.Column(db.Integer,
+                         db.ForeignKey('posts.post_id'),
+                         primary_key=True)
+    tag_key = db.Column(db.Integer,
+                        db.ForeignKey('tags.tag_id'),
+                        primary_key=True)
+
+    def __repr__(self):
+        x = self
+        return f'{x.post} {x.tag}'    

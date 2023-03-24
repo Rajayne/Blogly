@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, flash
 from sqlalchemy import desc
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__,template_folder='templates')
 

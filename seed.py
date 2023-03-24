@@ -1,6 +1,6 @@
 """Seed file for blogly db"""
 
-from models import User, Post, db
+from models import User, Post, Tag, PostTag, db
 from app import app
 
 # Create tables
@@ -44,5 +44,13 @@ db.session.add(post3)
 db.session.add(post4)
 db.session.add(post5)
 db.session.add(post6)
+
+tag1 = Tag(tag_name='yolo')
+
+db.session.add(tag1)
+
+posttag1 = PostTag(tag_key=1, post_key=1)
+
+db.session.add(posttag1)
 
 db.session.commit()
